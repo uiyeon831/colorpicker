@@ -118,15 +118,10 @@ bodyall.addEventListener("click", e => {
   colorBlock.addEventListener("mousemove", mousemove, false);
 
 
-// pen.addEventListener("click", () => {
 
-// })
+// pen.addEventListener("click", )
 
-// eraser.addEventListener("click", () => {
+// eraser.addEventListener("click", )
 
-// })
-
-// reset.addEventListener("click", () => {
-
-// })
+// reset.addEventListener("click", )
 
