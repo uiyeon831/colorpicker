@@ -13,7 +13,7 @@ const colorStrip = document.getElementById("colorStrip");
 
 //colorButton을 눌렀을 때 colorpicker가 보이도록
 //colorButton가 아닌 것을 눌렀을 때 colorpicker가 사라지도록
-bodyall.addEventListener("click", e => {
+function showcolorpicker(e) {
   const target = e.target;
 
   if(target.id == "colorButton" 
@@ -26,7 +26,9 @@ bodyall.addEventListener("click", e => {
     else {
       colorpicker.style.display = "none";
     }
-})
+}
+
+bodyall.addEventListener("click", showcolorpicker);
 
 
 //colorpicker 구현
