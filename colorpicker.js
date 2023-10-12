@@ -60,7 +60,7 @@ bodyall.addEventListener("click", showcolorpicker);
   grd1.addColorStop(0.85, "rgba(255, 0, 255, 1)");
   grd1.addColorStop(1, "rgba(255, 0, 0, 1)");
   ctx2.fillStyle = grd1;
-  ctx2.fill(); // 고정
+  ctx2.fill();
 
   //colorStrip을 눌렀을 때 colorBlock의 그라데이션 값 변경 함수
   function click(e) {
