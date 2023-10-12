@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>colorpicker</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="main">
+    <div id="container">
+      <div id="Screen">
+        <div id="icon_board">
+          <img src="pen_icon.png" id="pen" class="icon">
+          <img src="eraser_icon.png" id="eraser" class="icon">
+          <img src="reset_icon.png" id="reset" class="icon">
+          <!-- <input type="color" name="color" id="colorpicker"> -->
+          <button id="colorButton">
+        </div>
+        <div id="board"></div>
+      </div>
+    </div>
+    <div id="colorpicker">
+      <canvas id="colorBlock" width="150px" height="150px"></canvas>
+      <canvas id="colorStrip" width="30px" height="150px"></canvas>
+    </div>
+  </div>
+
+    <script src="colorpicker.js"></script>
+</body>
+</html>
