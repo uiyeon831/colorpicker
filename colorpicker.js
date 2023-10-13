@@ -127,68 +127,86 @@ bodyall.addEventListener("click", showcolorpicker);
   colorBlock.addEventListener("mouseup", mouseup, false);
   colorBlock.addEventListener("mousemove", mousemove, false);
 
-//RGB값, Hex값 적용하기
-// const input = document.querySelectorAll("input");
-// const R = document.getElementById("R");
-// const G = document.getElementById("G");
-// const B = document.getElementById("B");
-// const hex = document.getElementById("hex");
 
-// function inputColorcode () {
-//   if(Number(R.value) && Number(R.value) >= 0 && Number(R.value) <= 255) {
-//     console.log(R.value)
-//     // rgbaColor = `rgba(${R.value},${G.value},${B.value},1)`;
-//   } else {
-//     console.log("err")
-//   }
-// }
+// RGB값 적용하기
+const R = document.getElementById("R");
+const G = document.getElementById("G");
+const B = document.getElementById("B");
 
-// R.addEventListener("change", () => {
-//   console.log(input.id)
-//   inputColorcode();
-// })
+function inputColorcode (RGB) {
+  console.log(RGB)
+  if(!isNaN(RGB.value)) {
+    if(RGB.value < 0){
+      RGB.value = 0
+    } else if (RGB.value > 255){
+      RGB.value = 255
+    }
+    console.log(RGB.value)
+    rgbaColor = `rgba(${R.value},${G.value},${B.value},1)`;
+    colorButton.style.backgroundColor = rgbaColor;
+    if(pencheck.checked == true){
+      ctxB.strokeStyle = rgbaColor;
+    }
+
+    console.log(RGB.value)
+  }
+}
+
+R.addEventListener("change", (e) => {
+  inputColorcode(e.target);
+})
+
+G.addEventListener("change", (e) => {
+  inputColorcode(e.target);
+})
+
+B.addEventListener("change", (e) => {
+  inputColorcode(e.target);
+})
 
 
 //그림판 구현
+function stopPainting () {
+  painting = false;
+}
 
-//그리기 구현
+function startPainting () {
+  painting = true;
+}
+
+function onMouseMove (e) {
+  x = e.offsetX;
+  y = e.offsetY;
+  if(!painting){
+    ctxB.beginPath();
+    ctxB.moveTo(x, y);
+  } else {
+    ctxB.lineTo(x,y);
+    ctxB.stroke();
+  }
+}
+
+function onMouseDown(){
+  painting = true;
+}
+
+//펜 그리기
 pencheck.addEventListener("click", () => {
-  console.log(pencheck.checked);
-
-  if(pencheck.checked == true){
-    ctxB.lineWidth = 2.5;
+  console.log("p: ",pencheck.checked);
   
-    function stopPainting () {
-      painting = false;
-    }
-
-    function startPainting () {
-      painting = true;
-    }
-
-    function onMouseMove (e) {
-      x = e.offsetX;
-      y = e.offsetY;
-      if(!painting){
-        ctxB.beginPath();
-        ctxB.moveTo(x, y);
-      } else {
-        ctxB.lineTo(x,y);
-        ctxB.stroke();
-      }
-    }
-
-    function onMouseDown(){
-      painting = true;
-    }
-    
+  if(pencheck.checked == true){
     pen.style.backgroundColor = "#e0e0e0"
+    erasercheck.checked = false;
+    eraser.style.backgroundColor = "#ffffff"
+
+    ctxB.strokeStyle = rgbaColor;
+    ctxB.lineWidth = 2.5;
 
     board.addEventListener("mousemove", onMouseMove);
     board.addEventListener("mousedown", startPainting);
     board.addEventListener("mouseup", stopPainting);
     board.addEventListener("mouseleave", stopPainting);
-    
+
   }else {
     pen.style.backgroundColor = "#ffffff"
     board.removeEventListener("mousemove", onMouseMove);
@@ -198,19 +216,31 @@ pencheck.addEventListener("click", () => {
   }
 })
 
-
-
+//지우개 
 erasercheck.addEventListener("click", () => {
-  console.log(erasercheck.checked)
+  console.log("e: ", erasercheck.checked)
   if(erasercheck.checked == true){
     eraser.style.backgroundColor = "#e0e0e0"
+    pencheck.checked = false;
+    pen.style.backgroundColor = "#ffffff"
+
     ctxB.strokeStyle = "white"
     ctxB.lineWidth = 10;
+    
+    board.addEventListener("mousemove", onMouseMove);
+    board.addEventListener("mousedown", startPainting);
+    board.addEventListener("mouseup", stopPainting);
+    board.addEventListener("mouseleave", stopPainting);
   }else {
     eraser.style.backgroundColor = "#ffffff"
+    board.removeEventListener("mousemove", onMouseMove);
+    board.removeEventListener("mousedown", startPainting);
+    board.removeEventListener("mouseup", stopPainting);
+    board.removeEventListener("mouseleave", stopPainting);
   }
 })
 
+//리셋버튼
 reset.addEventListener("click", () => {
   ctxB.clearRect(0, 0, board.width, board.height)
 })
