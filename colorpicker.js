@@ -47,10 +47,14 @@ bodyall.addEventListener("click", showcolorpicker);
   const width2 = colorStrip.width;
   const height2 = colorStrip.height;
 
+  let toggle = 0;
+
   let x = 0;
   let y = 0;
   let drag = false;
-  let rgbaColor = "rgba(255,0,0,1)";
+  let rgbaColor = "rgba(0,0,0,1)";
+  colorButton.style.backgroundColor = "black";
+  ctxB.strokeStyle = "black";
 
   ctx1.rect(0, 0, width1, height1); //사각형을 추가
   fillGradient();
@@ -80,6 +84,7 @@ bodyall.addEventListener("click", showcolorpicker);
 
   //colorBlock 그라데이션 함수
   function fillGradient() {
+    rgbaColor = "rgba(255,0,0,1)";
     ctx1.fillStyle = rgbaColor;
     ctx1.fillRect(0, 0, width1, height1);
 
@@ -194,12 +199,20 @@ function onMouseDown(){
 pencheck.addEventListener("click", () => {
   console.log("p: ",pencheck.checked);
   
+
   if(pencheck.checked == true){
     pen.style.backgroundColor = "#e0e0e0"
     erasercheck.checked = false;
     eraser.style.backgroundColor = "#ffffff"
 
-    ctxB.strokeStyle = rgbaColor;
+    //펜의 초기값을 검정으로 주고싶어서
+    if(toggle === 0) {
+      ctxB.strokeStyle = "black";
+      toggle = 1;
+    } else {
+      ctxB.strokeStyle = rgbaColor;
+    }
+
     ctxB.lineWidth = 2.5;
 
     board.addEventListener("mousemove", onMouseMove);
