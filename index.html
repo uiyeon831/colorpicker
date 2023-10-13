@@ -11,32 +11,42 @@
     <div id="container">
       <div id="Screen">
         <div id="icon_board">
-          <img src="pen_icon.png" id="pen" class="icon">
-          <img src="eraser_icon.png" id="eraser" class="icon">
+          <input type="checkbox" id="pencheck" class="checkbox">
+          <label for="pencheck"><img src="pen_icon.png" id="pen" class="icon"></label>
+          
+          <input type="checkbox" id="erasercheck" class="checkbox">
+          <label for="erasercheck"><img src="eraser_icon.png" id="eraser" class="icon"></label>
+          
           <img src="reset_icon.png" id="reset" class="icon">
           <!-- <input type="color" name="color" id="colorpicker"> -->
           <button id="colorButton">
         </div>
-        <div id="board"></div>
+        <canvas id="board" width="500px" height="500px"></canvas>
       </div>
     </div>
     <div id="colorpicker">
         <canvas id="colorBlock" width="150px" height="150px"></canvas>
         <canvas id="colorStrip" width="30px" height="150px"></canvas>
-        <!-- <div id="colorcodeinput">
-          <div class="RGB">
-            <p>R : </p>
-            <input type="text" id="R" class="colorcode">
-            <p>G : </p>
-            <input type="text" id="G" class="colorcode">
-            <p>B : </p>
-            <input type="text" id="B" class="colorcode">
+        <div id="colorcodeinput">
+          <div id="RGB" class="colorcode">
+            <div>
+              <span class="colorcode">R</span><span class="colorcode">:</span>
+              <input type="text" id="R" class="rgbcode colorcode">
+            </div>
+            <div>
+              <span class="colorcode">G</span><span class="colorcode">:</span>
+              <input type="text" id="G" class="rgbcode colorcode">
+            </div>
+            <div>
+              <span class="colorcode">B</span><span class="colorcode">:</span>
+              <input type="text" id="B" class="rgbcode colorcode">
+            </div>
           </div>
-          <div class="Hex">
-            <p>Hex : </p>
-            <input type="text" id="Hex" class="colorcode">
+          <div id="Hex" class="colorcode">
+            <span class="colorcode">Hex</span><span class="colorcode">:</span>
+            <input type="text" id="hex" class="Hexcode colorcode">
           </div>
-        </div> -->
+        </div>
     </div>
   </div>
   <script src="colorpicker.js"></script>
