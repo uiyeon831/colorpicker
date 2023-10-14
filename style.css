@@ -151,3 +151,9 @@ canvas:hover {
   justify-content: center;
 	align-items: center;
 }
+
+.colorcode::-webkit-outer-spin-button,
+.colorcode::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}

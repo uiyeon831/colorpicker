@@ -14,6 +14,10 @@ const colorStrip = document.getElementById("colorStrip");
 
 const colorcode = document.querySelector(".colorcode");
 
+const R = document.getElementById("R");
+const G = document.getElementById("G");
+const B = document.getElementById("B");
+
 const ctxB = board.getContext("2d");
 let painting = false;
 
@@ -48,6 +52,7 @@ bodyall.addEventListener("click", showcolorpicker);
   const height2 = colorStrip.height;
 
   let toggle = 0;
+  let toggle2 = 0;
 
   let x = 0;
   let y = 0;
@@ -84,7 +89,10 @@ bodyall.addEventListener("click", showcolorpicker);
 
   //colorBlock 그라데이션 함수
   function fillGradient() {
-    rgbaColor = "rgba(255,0,0,1)";
+    if(toggle2 === 0) {
+      rgbaColor = "rgba(255,0,0,1)";
+      toggle2 = 1;
+    } 
     ctx1.fillStyle = rgbaColor;
     ctx1.fillRect(0, 0, width1, height1);
 
@@ -107,6 +115,9 @@ bodyall.addEventListener("click", showcolorpicker);
     y = e.offsetY;
     var imageData = ctx1.getImageData(x, y, 1, 1).data;
     rgbaColor = `rgba(${imageData[0]},${imageData[1]},${imageData[2]},1)`;
+    R.value = imageData[0];
+    G.value = imageData[1];
+    B.value = imageData[2];
     colorButton.style.backgroundColor = rgbaColor;
     ctxB.strokeStyle = rgbaColor;
   }
@@ -127,34 +138,28 @@ bodyall.addEventListener("click", showcolorpicker);
   }
 
   colorStrip.addEventListener("click", click, false);
-
   colorBlock.addEventListener("mousedown", mousedown, false);
   colorBlock.addEventListener("mouseup", mouseup, false);
   colorBlock.addEventListener("mousemove", mousemove, false);
 
 
 // RGB값 적용하기
-const R = document.getElementById("R");
-const G = document.getElementById("G");
-const B = document.getElementById("B");
-
 function inputColorcode (RGB) {
   console.log(RGB)
-  if(!isNaN(RGB.value)) {
-    if(RGB.value < 0){
-      RGB.value = 0
-    } else if (RGB.value > 255){
-      RGB.value = 255
-    }
-    console.log(RGB.value)
-    rgbaColor = `rgba(${R.value},${G.value},${B.value},1)`;
-    colorButton.style.backgroundColor = rgbaColor;
-    if(pencheck.checked == true){
-      ctxB.strokeStyle = rgbaColor;
-    }
+  if(RGB.value < 0){
+    RGB.value = 0
+  } else if (RGB.value > 255){
+    RGB.value = 255
+  }
+  console.log(RGB.value)
+  rgbaColor = `rgba(${R.value},${G.value},${B.value},1)`;
+  colorButton.style.backgroundColor = rgbaColor;
+  if(pencheck.checked == true){
+    ctxB.strokeStyle = rgbaColor;
+  }
 
     console.log(RGB.value)
-  }
+  
 }
 
 R.addEventListener("change", (e) => {
@@ -195,23 +200,22 @@ function onMouseDown(){
   painting = true;
 }
 
+//펜의 초기값을 검정으로 주고싶어서
+if(toggle === 0) {
+  ctxB.strokeStyle = "black";
+  toggle = 1;
+} else {
+  ctxB.strokeStyle = rgbaColor;
+}
+
 //펜 그리기
 pencheck.addEventListener("click", () => {
   console.log("p: ",pencheck.checked);
-  
 
   if(pencheck.checked == true){
     pen.style.backgroundColor = "#e0e0e0"
     erasercheck.checked = false;
     eraser.style.backgroundColor = "#ffffff"
-
-    //펜의 초기값을 검정으로 주고싶어서
-    if(toggle === 0) {
-      ctxB.strokeStyle = "black";
-      toggle = 1;
-    } else {
-      ctxB.strokeStyle = rgbaColor;
-    }
 
     ctxB.lineWidth = 2.5;
 
