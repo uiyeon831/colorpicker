@@ -113,7 +113,7 @@ bodyall.addEventListener("click", showcolorpicker);
   function changeColor(e) {
     x = e.offsetX;
     y = e.offsetY;
-    var imageData = ctx1.getImageData(x, y, 1, 1).data;
+    let imageData = ctx1.getImageData(x, y, 1, 1).data;
     rgbaColor = `rgba(${imageData[0]},${imageData[1]},${imageData[2]},1)`;
     R.value = imageData[0];
     G.value = imageData[1];
